@@ -17,10 +17,12 @@ const Page = () => {
   return (
     <div>
       <h1>掲示板ページ</h1>
-      <Link href="/keijiban/articles">
-        aaaa
-        {/* <a>記事一覧へ移動</a> */}
-      </Link>
+      <button className="bg-yellow-900 text-white font-bold py-4 px-6 rounded">
+        <Link href="/keijiban/articles">
+          aaaa
+          {/* <a>記事一覧へ移動</a> */}
+        </Link>
+      </button>
     </div>
   );
 };

@@ -1,17 +1,16 @@
-// import Link from "next/link";
-
-const buttonStyle = {
-  backgroundColor: "white", // 背景色をwhiteに修正
-  position: "absolute", // タイポ修正
-  top: "50%", // ボタンを垂直方向の中央に配置
-  left: "50%", // ボタンを水平方向の中央に配置
-  transform: "translate(-50%, -50%)" // ボタンを中央に寄せる
-};
+"use client";
+import Header from "../../components/Header/index.js";
 
 const Page = () => {
   return (
-    <div style={{ backgroundColor: "green", height: "100vh", position: "relative" }}>
-      <button style={buttonStyle}>スレッド作成</button>
+    <div className="bg-gray-200 min-h-screen">
+      <Header />
+      <div className="bg-gray-200 p-4 rounded-lg shadow-md">
+        <span className="font-bold text-blue-500">John:</span>
+        <p className="text-gray-700">
+          こんにちは、どのようにお手伝いできますか？
+        </p>
+      </div>
     </div>
   );
 };

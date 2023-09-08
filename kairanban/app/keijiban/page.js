@@ -1,16 +1,16 @@
 "use client";
 import Header from "../../components/Header/index.js";
+import Canvas from "../../components/Rakugaki/index.js";
 
 const Page = () => {
+  const screenWidth = window.screen.width;
+  const screenHeight = window.screen.height;
+  console.log(screenWidth);
+  console.log(screenHeight);
   return (
     <div className="bg-gray-200 min-h-screen">
       <Header />
-      <div className="bg-gray-200 p-4 rounded-lg shadow-md">
-        <span className="font-bold text-blue-500">John:</span>
-        <p className="text-gray-700">
-          こんにちは、どのようにお手伝いできますか？
-        </p>
-      </div>
+      <Canvas width={screenWidth} height={screenHeight} />
     </div>
   );
 };

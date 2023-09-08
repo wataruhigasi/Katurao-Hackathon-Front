@@ -12,38 +12,43 @@ const Page = () => {
   //   setScreenHeight(window.screen.height);
   // }, []);
   useEffect(() => {
-    // const handleScroll = () => {
-    //   if (
-    //     window.innerHeight + window.scrollY >=
-    //     document.body.scrollHeight - 200
-    //   ) {
-    //     const content = document.createElement("div");
-    //     content.style.minHeight = "200px";
-    //     document.body.appendChild(content);
-    //   }
-    // };
+    //たてスクロール
     const handleScroll = () => {
+      if (
+        window.innerHeight + window.scrollY >=
+        document.body.scrollHeight - 200
+      ) {
+        const content = document.createElement("div");
+        content.style.minHeight = "200px";
+        document.body.appendChild(content);
+      }
+    };
+    //横スクロール
+    const yoko = () => {
       if (
         window.innerWidth + window.scrollX >=
         document.body.scrollWidth - 200
       ) {
+        console.log("yoko");
         const content = document.createElement("div");
-        content.style.minWidth = "200px";
+        content.style.Width = "200px";
         document.body.appendChild(content);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", yoko);
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", yoko);
     };
   }, []);
 
   return (
     <div className="bg-gray-200 min-h-screen">
       <Header />
-      <div style={{ minWidth: "200px" }}></div>
+      <div style={{ minHeight: "100vh", minWidth: "100vw" }}></div>
     </div>
   );
 };

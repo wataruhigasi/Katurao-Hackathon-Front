@@ -4,7 +4,8 @@ import Header from "../../components/Header/index.js";
 import Canvas from "../../components/Rakugaki/index.js";
 
 const Page = () => {
-  const [width, setaa] = useState(50);
+  const [width, setwidth] = useState(50);
+  const [height, setheight] = useState(100)
   useEffect(() => {
 
     const handleScroll = () => {
@@ -12,9 +13,7 @@ const Page = () => {
         window.innerHeight + window.scrollY >=
         document.body.scrollHeight - 200
       ) {
-        const content = document.createElement("div");
-        content.style.minHeight = "200px";
-        document.body.appendChild(content);
+        setheight((height) => height + 50)
       }
     };
 
@@ -24,10 +23,7 @@ const Page = () => {
         window.innerWidth + window.scrollX >=
         document.body.scrollWidth - 200
       ) {
-        const content = document.createElement("div");
-        setaa((width) => width + 50);
-
-        document.body.appendChild(content);
+        setwidth((width) => width + 50);
       }
     };
 
@@ -43,7 +39,7 @@ const Page = () => {
   return (
     <div className="bg-gray-200 min-h-screen" >
       <Header />
-      <div style={{ minHeight: "100vh", minWidth: width + "vh" }}></div>
+      <div style={{ minHeight: height + "vh", minWidth: width + "vw" }}></div>
     </div>
   );
 };

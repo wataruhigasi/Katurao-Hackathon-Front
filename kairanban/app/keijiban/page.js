@@ -18,6 +18,7 @@ const Page = () => {
         window.innerHeight + window.scrollY >=
         document.body.scrollHeight - 200
       ) {
+        console.log("tate");
         const content = document.createElement("div");
         content.style.minHeight = "200px";
         document.body.appendChild(content);
@@ -31,7 +32,7 @@ const Page = () => {
       ) {
         console.log("yoko");
         const content = document.createElement("div");
-        content.style.Width = "200px";
+        content.style.width = "200px";
         document.body.appendChild(content);
       }
     };
@@ -48,7 +49,14 @@ const Page = () => {
   return (
     <div className="bg-gray-200 min-h-screen">
       <Header />
-      <div style={{ minHeight: "100vh", minWidth: "100vw" }}></div>
+      <div
+        style={{
+          minHeight: "100vh",
+          minWidth: "200vw",
+          whiteSpace: "nowrap",
+          overflow: "auto",
+        }}
+      ></div>
     </div>
   );
 };

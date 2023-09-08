@@ -4,15 +4,9 @@ import Header from "../../components/Header/index.js";
 import Canvas from "../../components/Rakugaki/index.js";
 
 const Page = () => {
-  // const [screenWidth, setScreenWidth] = useState(null);
-  // const [screenHeight, setScreenHeight] = useState(null);
-
-  // useEffect(() => {
-  //   setScreenWidth(window.screen.width);
-  //   setScreenHeight(window.screen.height);
-  // }, []);
+  const [width, setaa] = useState(50);
   useEffect(() => {
-    //たてスクロール
+
     const handleScroll = () => {
       if (
         window.innerHeight + window.scrollY >=
@@ -23,15 +17,16 @@ const Page = () => {
         document.body.appendChild(content);
       }
     };
-    //横スクロール
+
+
     const yoko = () => {
       if (
         window.innerWidth + window.scrollX >=
         document.body.scrollWidth - 200
       ) {
-        console.log("yoko");
         const content = document.createElement("div");
-        content.style.Width = "200px";
+        setaa((width) => width + 50);
+
         document.body.appendChild(content);
       }
     };
@@ -46,9 +41,9 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="bg-gray-200 min-h-screen">
+    <div className="bg-gray-200 min-h-screen" >
       <Header />
-      <div style={{ minHeight: "100vh", minWidth: "100vw" }}></div>
+      <div style={{ minHeight: "100vh", minWidth: width + "vh" }}></div>
     </div>
   );
 };

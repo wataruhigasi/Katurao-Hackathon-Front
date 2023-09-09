@@ -4,36 +4,26 @@ import Header from "../../components/Header/index.js";
 import Canvas from "../../components/Rakugaki/index.js";
 
 const Page = () => {
-  // const [screenWidth, setScreenWidth] = useState(null);
-  // const [screenHeight, setScreenHeight] = useState(null);
-
-  // useEffect(() => {
-  //   setScreenWidth(window.screen.width);
-  //   setScreenHeight(window.screen.height);
-  // }, []);
+  const [width, setwidth] = useState(50);
+  const [height, setheight] = useState(100)
   useEffect(() => {
-    //たてスクロール
+
     const handleScroll = () => {
       if (
         window.innerHeight + window.scrollY >=
         document.body.scrollHeight - 200
       ) {
-        console.log("tate");
-        const content = document.createElement("div");
-        content.style.minHeight = "200px";
-        document.body.appendChild(content);
+        setheight((height) => height + 50)
       }
     };
-    //横スクロール
+
+
     const yoko = () => {
       if (
         window.innerWidth + window.scrollX >=
         document.body.scrollWidth - 200
       ) {
-        console.log("yoko");
-        const content = document.createElement("div");
-        content.style.width = "200px";
-        document.body.appendChild(content);
+        setwidth((width) => width + 50);
       }
     };
 
@@ -47,16 +37,9 @@ const Page = () => {
   }, []);
 
   return (
-    <div className="bg-gray-200 min-h-screen">
+    <div className="bg-gray-200 min-h-screen" >
       <Header />
-      <div
-        style={{
-          minHeight: "100vh",
-          minWidth: "200vw",
-          whiteSpace: "nowrap",
-          overflow: "auto",
-        }}
-      ></div>
+      <div style={{ minHeight: height + "vh", minWidth: width + "vw" }}></div>
     </div>
   );
 };

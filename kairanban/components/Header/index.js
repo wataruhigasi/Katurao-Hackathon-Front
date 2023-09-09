@@ -28,7 +28,7 @@ const Header = () => {
   }, []);
 
   const headerStyle = {
-    position: isHeaderFixed ? "fixed" : "static", // isHeaderFixedに応じてpositionを変更
+    position: isHeaderFixed ? "fixed" : "static",
     top: 0,
     width: "100%",
     zIndex: 999,
@@ -36,8 +36,8 @@ const Header = () => {
   };
 
   const buttonContainerStyle = {
-    marginLeft: "auto", // ボタンを右寄せにする
-    marginRight: "40px", // ボタンの右側の余白を調整
+    marginLeft: "auto",
+    marginRight: "40px",
   };
 
   return (
@@ -54,14 +54,3 @@ const Header = () => {
   );
 };
 export default Header;
-//   return (
-//     <header className="bg-white p-4 flex justify-end">
-//       <button className="rounded-full text-green-500 border border-green-500 font-semibold rounded hover:bg-green-100 px-4 py-2 mr-2">
-//         <Link href="/keijiban/threads/new">スレッド作成</Link>
-//       </button>
-//       <button className="rounded-full text-green-500 border border-green-500 font-semibold rounded hover:bg-green-100 px-4 py-2">
-//         <Link href="/keijiban/articles/new">記事作成</Link>
-//       </button>
-//     </header>
-//   );
-// };

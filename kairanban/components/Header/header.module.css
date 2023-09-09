@@ -1,0 +1,19 @@
+.headerStyle {
+  position: "fixed";
+  top: 0;
+  width: "100%";
+  background: "white";
+  z-index: 999;
+  padding: "10px";
+}
+
+.button {
+  border: 1px solid #06b6d4;
+  background-color: #06b6d4;
+  color: #fff;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}

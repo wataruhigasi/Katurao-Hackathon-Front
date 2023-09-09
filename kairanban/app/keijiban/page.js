@@ -54,12 +54,13 @@ const Page = () => {
 
   return (
     <div>
-      <Header style={headerStyle} />
+      <Header />
       <div
         className="bg-gray-200"
         style={{ minHeight: height + "vh", minWidth: width + "vw" }}
       >
-        <div style={{ minHeight: height + "vh", minWidth: width + "vw" }}></div>
+        <Canvas width={width} height={height} />
+        {/* <div style={{ minHeight: height + "vh", minWidth: width + "vw" }}></div> */}
       </div>
     </div>
   );

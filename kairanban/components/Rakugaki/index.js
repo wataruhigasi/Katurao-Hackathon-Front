@@ -1,6 +1,12 @@
-import React, { useRef } from "react";
+import React, { useRef, useState, useEffect } from "react";
 
 const Canvas = ({ width, height }) => {
+  const [widths, setWidth] = useState(width);
+  useEffect(() => {
+    const viewportheight = window.innerHeight;
+    const pxValue = (widths * viewportheight) / 100;
+    setWidth(pxValue);
+  }, []);
   let canvasRef = useRef(null);
   let mouseX = null;
   let mouseY = null;
@@ -63,8 +69,8 @@ const Canvas = ({ width, height }) => {
           onMouseUp={DrawEnd}
           onMouseOut={DrawEnd}
           ref={canvasRef}
-          width={`${width}px`}
-          height={`${height}px`}
+          width={`${width * 10}px`}
+          height={`${height * 10}px`}
         />
       </div>
     </section>

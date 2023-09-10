@@ -60,14 +60,6 @@ const Page = () => {
     }
   };
 
-  const headerStyle = {
-    position: isHeaderFixed ? "fixed" : "static",
-    top: 0,
-    width: "100%",
-    zIndex: 999,
-    background: "white",
-  };
-
   return (
     <div>
       <Header />

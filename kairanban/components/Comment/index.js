@@ -1,19 +1,15 @@
 import React from "react";
 
-const Comment = ({ index, name, time, content }) => {
+const Comment = ({ index, name, date, content }) => {
   return (
-    <div className="bg-gray-200 p-4 mb-4">
-      <div>
-        <strong>番号:</strong> {index + 1}
+    <div className="bg-gray-100 p-4 mb-4 rounded shadow-md">
+      <div className="flex items-center mb-2">
+        <span className="font-semibold text-blue-600 mr-2">#{index + 1}:</span>
+        <span className="text-gray-600">{date}</span>
       </div>
-      <div>
-        <strong>名前:</strong> {name}
-      </div>
-      <div>
-        <strong>時間:</strong> {time}
-      </div>
-      <div>
-        <strong>内容:</strong> {content}
+      <div className="flex items-center mb-2">
+        <div className="text-gray-800">{name}</div>
+        <div className="text-gray-800"> :{content}</div>
       </div>
     </div>
   );

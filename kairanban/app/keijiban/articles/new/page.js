@@ -7,7 +7,8 @@ import DoneButton from "../../../../components/Button";
 
 export default function Articles() {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
+  const [body, setContent] = useState("");
+  const [position, setPosition] = useState({ x: 100, y: 20 });
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -19,15 +20,17 @@ export default function Articles() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const Endpoint = "http://localhost:8000/api/articles";
+    const Endpoint = "http://localhost:8080/article";
 
     const formData = {
       title: title,
-      context: content,
+      body: body,
+      position: position,
     };
 
     try {
       const response = await axios.post(Endpoint, formData);
+      console.log(response);
       setTitle("");
       setContent("");
     } catch (error) {
@@ -54,18 +57,18 @@ export default function Articles() {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="content" className="block text-gray-700 font-bold">
+            <label htmlFor="body" className="block text-gray-700 font-bold">
               内容
             </label>
             <textarea
-              id="content"
-              value={content}
+              id="body"
+              value={body}
               onChange={handleContentChange}
               className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 text-black h-64"
             />
           </div>
           <div className="text-right">
-            <DoneButton />
+            <DoneButton onClick={handleSubmit} />
           </div>
         </form>
       </div>

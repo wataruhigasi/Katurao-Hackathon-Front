@@ -10,14 +10,14 @@ const threadsPage = () => {
   };
   const comments = [
     {
-      name: "John Doe",
-      time: "10:00 AM",
-      content: "コメント1の内容",
+      name: "あゆむ",
+      date: "2017/11/29 20:30",
+      content: "ちんちんおっきくなーれ",
     },
     {
-      name: "Jane Smith",
-      time: "11:30 AM",
-      content: "コメント2の内容",
+      name: "あゆむ",
+      date: "2020/05/29 20:30",
+      content: "まんこおっきくなーれ",
     },
   ];
   useEffect(() => {

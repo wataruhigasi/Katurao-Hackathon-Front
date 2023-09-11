@@ -27,7 +27,6 @@ const Page = () => {
       }
 
       const headerHeight = 60;
-      // スクロール位置がヘッダーの位置を超えたらヘッダーを固定
       if (window.scrollY >= headerHeight) {
         setIsHeaderFixed(true);
       } else {

@@ -1,9 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Comment from "../../../../components/Comment/index.js";
+import CommentForm from "../../../../components/Comment/Form/index.js";
+import Canvas from "../../../../components/Rakugaki/index.js";
 
-const threadsPage = () => {
+const ThreadsPage = () => {
   const [height, setheight] = useState(200);
+  const [width, setwidth] = useState(200);
   const title = {
     fontSize: "24px",
     color: "black",
@@ -12,14 +15,15 @@ const threadsPage = () => {
     {
       name: "あゆむ",
       date: "2017/11/29 20:30",
-      content: "ちんちんおっきくなーれ",
+      content: "おっきくなーれ",
     },
     {
       name: "あゆむ",
       date: "2020/05/29 20:30",
-      content: "まんこおっきくなーれ",
+      content: "おっきくなーれ",
     },
   ];
+
   useEffect(() => {
     const handleScroll = () => {
       if (
@@ -40,15 +44,20 @@ const threadsPage = () => {
     <div>
       <div className="bg-gray-200" style={{ minHeight: height + "vh" }}>
         <h2 style={title}>スレッドタイトル</h2>
+        <div style={{ height: "20px" }}></div>
         <div style={{ borderTop: "10px dashed #8c8b8b" }}>
-          {/* ここにコンテンツを配置 */}
+          <div style={{ height: "20px" }}></div>
           {comments.map((comment, index) => (
             <Comment key={index} index={index} {...comment} />
           ))}
         </div>
+        <Canvas width={width} height={height} />
+      </div>
+      <div className="fixed bottom-0 left-0 right-0 p-4 bg-gray-200">
+        <CommentForm />
       </div>
     </div>
   );
 };
 
-export default threadsPage;
+export default ThreadsPage;

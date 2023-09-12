@@ -6,8 +6,8 @@ import DragDropBox from "../../components/Dragdrop/DragDrop.js";
 import RakugakiButton from "../../components/Button/RakugakiButton.js";
 
 const Page = () => {
-  const [width, setwidth] = useState(50);
-  const [height, setheight] = useState(100);
+  const [width, setwidth] = useState(1000);
+  const [height, setheight] = useState(1000);
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
   const [isCanvasVisible, setIsCanvasVisible] = useState(false);
 
@@ -46,10 +46,10 @@ const Page = () => {
     };
   }, []);
 
-  // const toggleCanvas = () => {
-  //   console.log("toggleCanvas");
-  //   setIsCanvasVisible(!isCanvasVisible);
-  // };
+  const toggleCanvas = () => {
+    console.log("toggleCanvas");
+    setIsCanvasVisible(!isCanvasVisible);
+  };
 
   const GetArticles = async () => {
     try {
@@ -73,15 +73,15 @@ const Page = () => {
       <div
         className="bg-gray-200"
         style={{
-          opacity: 0.3,
-          minHeight: height + "vh",
-          minWidth: width + "vw",
+          opacity: 0.7,
+          minHeight: height + "px",
+          minWidth: width + "px",
         }}
       >
         <button onClick={GetArticles}>Get Articles</button>
         <DragDropBox width={width} height={height} />
         <Canvas width={width} height={height} />
-        {/* <RakugakiButton /> */}
+        <RakugakiButton toggleCanvas={toggleCanvas} />
       </div>
     </div>
   );

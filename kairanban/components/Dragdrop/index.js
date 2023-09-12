@@ -34,8 +34,8 @@ function Example(width) {
   }));
 
   const containerStyle = {
-    width: width.width * 10,
-    height: width.height * 10,
+    width: width.width,
+    height: width.height,
   };
   console.log("containerStyle", containerStyle);
 

@@ -66,8 +66,8 @@ const Canvas = ({ width, height }) => {
     position: "fixed",
     top: 0,
     left: 0,
-    width: width * 10,
-    height: height * 10,
+    width: width,
+    height: height,
     zIndex: -1,
   };
 
@@ -80,8 +80,8 @@ const Canvas = ({ width, height }) => {
           onMouseUp={DrawEnd}
           onMouseOut={DrawEnd}
           ref={canvasRef}
-          width={`${width * 10}px`}
-          height={`${height * 10}px`}
+          width={`${width}px`}
+          height={`${height}px`}
           style={canvasStyle}
         />
       </div>

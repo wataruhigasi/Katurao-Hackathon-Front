@@ -1,31 +1,29 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
+import Header from "../../components/Header";
+import RakugakiButton from "../../components/Button/RakugakiButton";
+import ModeButton from "../../components/ModeButton";
 
 const Page: React.FC = () => {
+  useEffect(() => {
+    window.scrollTo(10000 / 2, 10000 / 2);
+  }, []);
+
   return (
-    <div className={styles.canvasContainer}>
-      {/* ui-canvasはボタンなど専用のキャンバス */}
-      <canvas
-        className={styles.uiCanvas}
-        height={"10000px"}
-        width={"10000px"}
-      ></canvas>
-
-      {/* keijiban-canvasは記事やスレッド専用のキャンバス */}
-      <canvas
-        className={styles.keijibanCanvas}
-        height={"10000px"}
-        width={"10000px"}
-      ></canvas>
-
-      {/* rakugaki-canvasはらくがき専用のキャンバス */}
-      <canvas
-        className={styles.rakugakiCanvas}
-        height={"10000px"}
-        width={"10000px"}
-      ></canvas>
-    </div>
+    <>
+      <Header />
+      <ModeButton />
+      <div className={styles.canvasContainer}>
+        {/* rakugaki-canvasはらくがき専用のキャンバス */}
+        <canvas
+          className={styles.rakugakiCanvas}
+          height={"10000px"}
+          width={"10000px"}
+        ></canvas>
+      </div>
+      {/* <RakugakiButton /> */}
+    </>
   );
 };
 

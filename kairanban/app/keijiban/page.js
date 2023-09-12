@@ -72,7 +72,11 @@ const Page = () => {
       <Header />
       <div
         className="bg-gray-200"
-        style={{ minHeight: height + "vh", minWidth: width + "vw" }}
+        style={{
+          opacity: 0.3,
+          minHeight: height + "vh",
+          minWidth: width + "vw",
+        }}
       >
         <button onClick={GetArticles}>Get Articles</button>
         <DragDropBox width={width} height={height} />

@@ -47,6 +47,7 @@ const Canvas = ({ width, height }) => {
   const Draw = (x, y) => {
     const ctx = getContext();
     ctx.globalAlpha = 1.0;
+    ctx.beginPath();
     if (mouseX === null || mouseY === null) {
       ctx.moveTo(x, y);
     } else {
@@ -65,10 +66,9 @@ const Canvas = ({ width, height }) => {
     position: "fixed",
     top: 0,
     left: 0,
-    width: "100%",
-    height: "100%",
+    width: width * 10,
+    height: height * 10,
     zIndex: -1,
-    backgroundColor: "rgba(255, 255, 255, 0)",
   };
 
   return (

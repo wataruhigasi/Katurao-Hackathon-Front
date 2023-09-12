@@ -21,9 +21,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 4px;
+
   fill: #527c5d;
   transition: background-color 0.3s ease-in-out;
+}
+
+.iconSelected {
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border-radius: 4px;
+
+  fill: #fff;
+  background-color: #527c5d;
+  transition: background-color 0.3s ease-in-out;
 }
 
 .icon:hover {

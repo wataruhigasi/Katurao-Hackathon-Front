@@ -3,13 +3,24 @@ import EditSvg from "../../public/EditIcon.svg";
 import SelectSvg from "../../public/SelectIcon.svg";
 import styles from "./index.module.css";
 
-const ModeButton: React.FC = () => {
+type ModeButtonProps = {
+  mode: "select" | "edit";
+  onClick: (mode: "select" | "edit") => () => void;
+};
+
+const ModeButton: React.FC<ModeButtonProps> = ({ mode, onClick }) => {
   return (
     <div className={styles.buttonContainer}>
-      <div className={styles.icon}>
+      <div
+        className={mode === "select" ? styles.iconSelected : styles.icon}
+        onClick={onClick("select")}
+      >
         <SelectSvg />
       </div>
-      <div className={styles.icon}>
+      <div
+        className={mode === "edit" ? styles.iconSelected : styles.icon}
+        onClick={onClick("edit")}
+      >
         <EditSvg />
       </div>
     </div>

@@ -10,10 +10,17 @@ const Page: React.FC = () => {
     window.scrollTo(10000 / 2, 10000 / 2);
   }, []);
 
+  const [mode, setMode] = useState<"select" | "edit">("select");
+  const modeButtonOnClick = (a: "select" | "edit") => {
+    return () => {
+      setMode(a);
+    };
+  };
+
   return (
     <>
       <Header />
-      <ModeButton />
+      <ModeButton mode={mode} onClick={modeButtonOnClick} />
       <div className={styles.canvasContainer}>
         {/* rakugaki-canvasはらくがき専用のキャンバス */}
         <canvas
@@ -22,7 +29,6 @@ const Page: React.FC = () => {
           width={"10000px"}
         ></canvas>
       </div>
-      {/* <RakugakiButton /> */}
     </>
   );
 };

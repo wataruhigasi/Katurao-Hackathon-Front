@@ -1,0 +1,27 @@
+.demo {
+  background-color: #13fab1;
+  box-sizing: border-box;
+  border: 1px solid #646464;
+  padding: 10px;
+  width: 100%;
+  height: 300px;
+  position: relative;
+}
+
+#droparea {
+  background-color: #f70f0f;
+  box-sizing: border-box;
+  border: 1px dotted #646464;
+  width: 50%;
+  height: 100%;
+}
+
+#box {
+  cursor: grab;
+  background-color: #000;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  top: 50%;
+  left: 70%;
+}

@@ -2,7 +2,7 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import DoneButton from "../../../../components/Button";
+import DoneButton from "../../../../components/Button/FormButton";
 
 export default function Articles() {
   const [title, setTitle] = useState("");

@@ -17,6 +17,7 @@ const Canvas = ({ width, height }) => {
   };
 
   const OnClick = (e) => {
+    console.log("onClick");
     if (e.button === 0) {
       return;
     }
@@ -60,6 +61,16 @@ const Canvas = ({ width, height }) => {
     mouseY = y;
   };
 
+  const canvasStyle = {
+    position: "fixed",
+    top: 0,
+    left: 0,
+    width: "100%",
+    height: "100%",
+    zIndex: -1,
+    backgroundColor: "rgba(255, 255, 255, 0)",
+  };
+
   return (
     <section>
       <div>
@@ -71,6 +82,7 @@ const Canvas = ({ width, height }) => {
           ref={canvasRef}
           width={`${width * 10}px`}
           height={`${height * 10}px`}
+          style={canvasStyle}
         />
       </div>
     </section>

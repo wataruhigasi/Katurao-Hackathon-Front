@@ -2,11 +2,14 @@
 import React, { useEffect, useState } from "react";
 import Header from "../../components/Header/index.js";
 import Canvas from "../../components/Rakugaki/index.js";
+import DragDropBox from "../../components/Dragdrop/DragDrop.js";
+import RakugakiButton from "../../components/Button/RakugakiButton.js";
 
 const Page = () => {
   const [width, setwidth] = useState(50);
   const [height, setheight] = useState(100);
   const [isHeaderFixed, setIsHeaderFixed] = useState(false);
+  const [isCanvasVisible, setIsCanvasVisible] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,6 +46,11 @@ const Page = () => {
     };
   }, []);
 
+  // const toggleCanvas = () => {
+  //   console.log("toggleCanvas");
+  //   setIsCanvasVisible(!isCanvasVisible);
+  // };
+
   const GetArticles = async () => {
     try {
       const Endpoint = "http://localhost:8080/articles";
@@ -67,8 +75,9 @@ const Page = () => {
         style={{ minHeight: height + "vh", minWidth: width + "vw" }}
       >
         <button onClick={GetArticles}>Get Articles</button>
+        <DragDropBox width={width} height={height} />
         <Canvas width={width} height={height} />
-        {/* <div style={{ minHeight: height + "vh", minWidth: width + "vw" }}></div> */}
+        {/* <RakugakiButton /> */}
       </div>
     </div>
   );

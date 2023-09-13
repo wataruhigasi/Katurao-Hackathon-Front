@@ -1,33 +1,57 @@
-import React, {
-  useRef,
-  useState,
-  useEffect,
-  createElement,
-  ReactSVGElement,
-} from "react";
+import React, { useEffect } from "react";
 import styles from "./index.module.css";
 import * as fabric from "fabric";
-// import { Canvas } from "fabric/fabric-impl";
 
-type RakugakiCanvasProps = {
-  width: number;
-  height: number;
-};
-
-const RakugakiCanvas: React.FC<RakugakiCanvasProps> = ({ width, height }) => {
-  // キャンバスの初期化処理
+const RakugakiCanvas: React.FC = () => {
   useEffect(() => {
-    let canvas = new fabric.Canvas("canvas-id", {
+    const canvas = new fabric.Canvas("c", {
+      height: 500,
+      width: 500,
+      backgroundColor: "#ffffff",
       isDrawingMode: true,
-      width: 10000,
-      height: 10000,
-      backgroundColor: "#80beaf",
     });
+
+    // マウスのドラッグで線を描画
+    let isDrawing = false;
+    let lastX = 0;
+    let lastY = 0;
+
+    canvas.on("mouse:down", (event) => {
+      isDrawing = true;
+      const pointer = canvas.getPointer(event.e);
+      lastX = pointer.x;
+      lastY = pointer.y;
+    });
+
+    canvas.on("mouse:move", (event) => {
+      if (!isDrawing) return;
+      const pointer = canvas.getPointer(event.e);
+      const currentX = pointer.x;
+      const currentY = pointer.y;
+
+      // 線を描画
+      const line = new fabric.Line([lastX, lastY, currentX, currentY], {
+        fill: "black",
+        stroke: "black",
+        strokeWidth: 2,
+      });
+
+      canvas.add(line);
+
+      lastX = currentX;
+      lastY = currentY;
+    });
+
+    canvas.on("mouse:up", () => {
+      isDrawing = false;
+    });
+
+    canvas.renderAll();
   }, []);
 
   return (
     <div className={styles.canvasContainer}>
-      <canvas id="canvas-id" />
+      <canvas id="c" />
     </div>
   );
 };

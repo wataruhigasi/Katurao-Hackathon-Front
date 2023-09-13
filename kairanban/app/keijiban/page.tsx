@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Header from "../../components/Header";
-import RakugakiButton from "../../components/Button/RakugakiButton";
 import ModeButton from "../../components/ModeButton";
+import RakugakiCanvas from "../../components/RakugakiCanvas";
 
 const Page: React.FC = () => {
   useEffect(() => {
@@ -21,14 +21,7 @@ const Page: React.FC = () => {
     <>
       <Header />
       <ModeButton mode={mode} onClick={modeButtonOnClick} />
-      <div className={styles.canvasContainer}>
-        {/* rakugaki-canvasはらくがき専用のキャンバス */}
-        <canvas
-          className={styles.rakugakiCanvas}
-          height={"10000px"}
-          width={"10000px"}
-        ></canvas>
-      </div>
+      <RakugakiCanvas width={10000} height={10000}></RakugakiCanvas>
     </>
   );
 };

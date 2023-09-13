@@ -10,40 +10,16 @@ const RakugakiCanvas: React.FC = () => {
       backgroundColor: "#ffffff",
       isDrawingMode: true,
     });
-
-    // マウスのドラッグで線を描画
-    let isDrawing = false;
-    let lastX = 0;
-    let lastY = 0;
-
-    canvas.on("mouse:down", (event) => {
-      isDrawing = true;
-      const pointer = canvas.getPointer(event.e);
-      lastX = pointer.x;
-      lastY = pointer.y;
-    });
-
-    canvas.on("mouse:move", (event) => {
-      if (!isDrawing) return;
-      const pointer = canvas.getPointer(event.e);
-      const currentX = pointer.x;
-      const currentY = pointer.y;
-
-      // 線を描画
-      const line = new fabric.Line([lastX, lastY, currentX, currentY], {
-        fill: "black",
-        stroke: "black",
-        strokeWidth: 2,
-      });
-
-      canvas.add(line);
-
-      lastX = currentX;
-      lastY = currentY;
-    });
+    canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
 
     canvas.on("mouse:up", () => {
-      isDrawing = false;
+      console.log("hello");
+    });
+
+    canvas.on("path:created", (e) => {
+      console.log(e);
+      console.log(e.path);
+      console.log(e.path.toSVG());
     });
 
     canvas.renderAll();

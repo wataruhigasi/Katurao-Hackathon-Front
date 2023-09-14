@@ -1,38 +1,36 @@
 import React, { useEffect } from "react";
-import styles from "./index.module.css";
 import * as fabric from "fabric";
 
+type UseRakugakiCanvas = (props: {
+  canvasId: string;
+  className?: string;
+  options?: {};
+  deps?: React.DependencyList;
+}) => {
+  RakugakiCanvas: React.FC<RakugakiCanvasProps>;
+  canvas: fabric.Canvas;
+};
+
 type RakugakiCanvasProps = {
-  height: number;
-  width: number;
+  className?: string;
 };
 
-const RakugakiCanvas: React.FC<RakugakiCanvasProps> = ({ height, width }) => {
+export const useRakugakiCanvas: UseRakugakiCanvas = ({ canvasId, options, deps }) => {
+  let canvas = null;
+
   useEffect(() => {
-    const canvas = new fabric.Canvas("canvas-id", {
-      height: height,
-      width: width,
-      isDrawingMode: true,
-    });
+    canvas = new fabric.Canvas(canvasId, options);
     canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
+  }, deps);
 
-    canvas.on("mouse:up", () => {
-      console.log("hello");
-    });
+  const RakugakiCanvas: React.FC<RakugakiCanvasProps> = ({ className }) => {
+    return <canvas id={canvasId} className={className} />;
+  };
 
-    canvas.on("path:created", (e) => {
-      console.log(e);
-      console.log(e.path);
-    });
-
-    canvas.renderAll();
-  }, []);
-
-  return (
-    <div className={styles.rakugakiCanvas}>
-      <canvas id="canvas-id" />
-    </div>
-  );
+  return {
+    RakugakiCanvas,
+    canvas,
+  };
 };
 
-export default RakugakiCanvas;
+export default useRakugakiCanvas;

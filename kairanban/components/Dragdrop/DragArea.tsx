@@ -11,7 +11,6 @@ const areaStyle: React.CSSProperties = {
   placeItems: "center",
   width: `${AREA_SIDE_LENGTH}px`,
   height: `${AREA_SIDE_LENGTH}px`,
-  border: "1px solid black",
   top: 0,
   left: 0,
 };

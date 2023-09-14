@@ -34,8 +34,11 @@ function Example(width) {
   }));
 
   const containerStyle = {
-    width: width.width,
-    height: width.height,
+    width: 1000,
+    height: 1000,
+    position: "absolute",
+    top: 0,
+    left: 0,
   };
   console.log("containerStyle", containerStyle);
 

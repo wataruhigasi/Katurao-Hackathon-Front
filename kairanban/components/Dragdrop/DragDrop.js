@@ -8,7 +8,7 @@ export default function DragDropBox({ width, height }) {
   return (
     <div className="App">
       <DndProvider backend={HTML5Backend}>
-        <Example width={width} height={height} />
+        <Example width={1000} height={1000} />
       </DndProvider>
     </div>
   );

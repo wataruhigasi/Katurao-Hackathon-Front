@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Header from "../../components/Header";
 import ModeButton from "../../components/ModeButton";
-import RakugakiCanvas from "../../components/RakugakiCanvas";
+import { useRakugakiCanvas } from "../../components/RakugakiCanvas";
 import DragDropBox from "../../components/Dragdrop/DragDrop";
 
 const Page: React.FC = () => {
@@ -18,11 +18,23 @@ const Page: React.FC = () => {
     };
   };
 
+  const { RakugakiCanvas } = useRakugakiCanvas({
+    canvasId: "keijiban-canvas",
+    options: {
+      height: 1000,
+      width: 1000,
+      isDrawingMode: true,
+    },
+    deps: [],
+  });
+
   return (
     <>
       <Header />
       <ModeButton mode={mode} onClick={modeButtonOnClick} />
-      <RakugakiCanvas width={1000} height={1000} />
+      <div className={styles.keijibanRakugakiCanvas}>
+        <RakugakiCanvas />
+      </div>
       <DragDropBox />
     </>
   );

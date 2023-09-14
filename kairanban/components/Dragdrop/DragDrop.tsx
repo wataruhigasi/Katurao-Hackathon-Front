@@ -1,15 +1,15 @@
 import React from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
-import Example from "./index.js";
+import DroppableArea from "../Dragdrop/DragArea";
 
-export default function DragDropBox({ width, height }) {
+export const DragDropBox: Fc = ({ width, height }) => {
   console.log("DragDropBox", width, height);
   return (
     <div className="App">
       <DndProvider backend={HTML5Backend}>
-        <Example width={1000} height={1000} />
+        <DroppableArea />
       </DndProvider>
     </div>
   );
-}
+};

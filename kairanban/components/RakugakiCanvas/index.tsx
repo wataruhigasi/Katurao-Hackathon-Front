@@ -8,6 +8,7 @@ type RakugakiCanvasProps = {
 };
 
 const RakugakiCanvas: React.FC<RakugakiCanvasProps> = ({ height, width }) => {
+  console.log("CanvasSize", height, width);
   useEffect(() => {
     const canvas = new fabric.Canvas("canvas-id", {
       height: height,

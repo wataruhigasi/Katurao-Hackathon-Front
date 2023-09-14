@@ -2,8 +2,8 @@ import React, { FC, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 
-const CARD_WIDTH = 480;
-const CARD_HEIGHT = 678.72;
+export const CARD_WIDTH = 480;
+export const CARD_HEIGHT = 678.72;
 
 const cardStyle: React.CSSProperties = {
   position: "absolute",

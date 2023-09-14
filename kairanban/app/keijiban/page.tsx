@@ -23,7 +23,7 @@ const Page: React.FC = () => {
       <Header />
       <ModeButton mode={mode} onClick={modeButtonOnClick} />
       <RakugakiCanvas width={1000} height={1000} />
-      <DragDropBox width={10000} height={10000} />
+      <DragDropBox />
     </>
   );
 };

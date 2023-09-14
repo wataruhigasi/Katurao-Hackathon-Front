@@ -4,6 +4,7 @@ import styles from "./page.module.css";
 import Header from "../../components/Header";
 import ModeButton from "../../components/ModeButton";
 import RakugakiCanvas from "../../components/RakugakiCanvas";
+import DragDropBox from "../../components/Dragdrop/DragDrop";
 
 const Page: React.FC = () => {
   useEffect(() => {
@@ -21,7 +22,8 @@ const Page: React.FC = () => {
     <>
       <Header />
       <ModeButton mode={mode} onClick={modeButtonOnClick} />
-      <RakugakiCanvas width={10000} height={10000} />
+      <RakugakiCanvas width={1000} height={1000} />
+      <DragDropBox width={10000} height={10000} />
     </>
   );
 };

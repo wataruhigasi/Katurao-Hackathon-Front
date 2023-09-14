@@ -1,14 +1,17 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./page.module.css";
 import Header from "../../components/Header";
 import ModeButton from "../../components/ModeButton";
-import { useRakugakiCanvas } from "../../components/RakugakiCanvas";
 import DragDropBox from "../../components/Dragdrop/DragDrop";
+import * as fabric from "fabric";
+
+const CANVAS_ID = "keijiban-canvas";
 
 const Page: React.FC = () => {
+  // 画面中央にスクロール
   useEffect(() => {
-    window.scrollTo(10000 / 2, 10000 / 2);
+    window.scrollTo(1000 / 2, 1000 / 2);
   }, []);
 
   const [mode, setMode] = useState<"select" | "edit" | "drag">("select");
@@ -18,22 +21,37 @@ const Page: React.FC = () => {
     };
   };
 
-  const { RakugakiCanvas } = useRakugakiCanvas({
-    canvasId: "keijiban-canvas",
-    options: {
+  // fabric.Canvasを再レンダリングのたびに生成するとエラーになるので、unmount処理のために保持する
+  const canvasRef = useRef<fabric.Canvas | null>(null);
+
+  const isEdit = mode === "edit";
+
+  useEffect(() => {
+    const newCanvas = new fabric.Canvas(CANVAS_ID, {
       height: 1000,
       width: 1000,
-      isDrawingMode: true,
-    },
-    deps: [],
-  });
+      isDrawingMode: isEdit,
+    });
+    newCanvas.freeDrawingBrush = new fabric.PencilBrush(newCanvas);
+
+    canvasRef.current = newCanvas;
+
+    return () => {
+      if (canvasRef.current) {
+        canvasRef.current.dispose();
+      }
+    };
+  }, [isEdit]);
 
   return (
     <>
       <Header />
       <ModeButton mode={mode} onClick={modeButtonOnClick} />
-      <div className={styles.keijibanRakugakiCanvas}>
-        <RakugakiCanvas />
+      <div className={styles.keijibanBackground}>
+        <canvas
+          id={CANVAS_ID}
+          className={mode === "edit" ? styles.zIndexPlus : styles.zIndexMinus}
+        />
       </div>
       <DragDropBox />
     </>

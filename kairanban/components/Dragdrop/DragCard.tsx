@@ -2,8 +2,8 @@ import React, { FC, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
 
-const CARD_WIDTH = 100;
-const CARD_HEIGHT = 50;
+const CARD_WIDTH = 480;
+const CARD_HEIGHT = 678.72;
 
 const cardStyle: React.CSSProperties = {
   position: "absolute",
@@ -24,6 +24,8 @@ const cardDraggingStyle: React.CSSProperties = {
 const textStyle: React.CSSProperties = {
   fontSize: "20px",
   fontWeight: "bold",
+  width: `${CARD_WIDTH}px`,
+  height: `${CARD_HEIGHT}px`,
 };
 
 export const CARD_TYPE = "Card";
@@ -33,16 +35,16 @@ export type CardItem = {
     top: number;
     left: number;
   };
-  name: string;
+  DataUrl: string;
   id: string;
 };
 
 export const DraggableCard: FC<{
   top: number;
   left: number;
-  name: string;
+  DataUrl: string;
   id: string;
-}> = ({ top, left, name, id }) => {
+}> = ({ top, left, DataUrl, id }) => {
   const [{ isDragging }, drag, preview] = useDrag<
     CardItem,
     Record<string, never>,
@@ -55,16 +57,17 @@ export const DraggableCard: FC<{
           top,
           left,
         },
-        name,
+        DataUrl,
         id,
       },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    [top, left, name, id]
+    [top, left, DataUrl, id]
   );
 
+  console.log(top, left, DataUrl, id);
   useEffect(() => {
     preview(getEmptyImage());
   }, []);
@@ -74,7 +77,9 @@ export const DraggableCard: FC<{
       style={isDragging ? cardDraggingStyle : { ...cardStyle, top, left }}
       ref={drag}
     >
-      <p style={textStyle}>{name}</p>
+      <p>
+        <img src={DataUrl} alt="SVG Image" />
+      </p>
     </div>
   );
 };

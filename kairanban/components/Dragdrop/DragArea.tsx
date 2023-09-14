@@ -1,7 +1,8 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { useDrop } from "react-dnd";
 import { CardItem, CARD_TYPE, DraggableCard } from "../Dragdrop/DragCard";
 import DragLayer from "../Dragdrop/DragLayer";
+import { data } from "autoprefixer";
 
 const AREA_SIDE_LENGTH = 10000;
 
@@ -16,10 +17,49 @@ const areaStyle: React.CSSProperties = {
 };
 
 const DroppableArea: FC = () => {
-  const [cardData, setCardData] = useState([
-    { top: 100, left: 100, name: "CARD1", id: "1" },
-    { top: 200, left: 200, name: "CARD2", id: "2" },
-  ]);
+  const [cardData, setCardData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const Endpoint = "http://localhost:8080/articles";
+        const response = await fetch(Endpoint);
+
+        if (!response.ok) {
+          throw new Error(
+            `ネットワーク応答が正しくありませんでした：${response.status}`
+          );
+        }
+
+        const data = await response.json();
+        data.map((article) => {
+          console.log(article);
+          const top = 100;
+          const left = 100;
+          const DataUrl = `data:image/svg+xml,${encodeURIComponent(
+            article.body
+          )}`;
+          const id = String(article.id);
+          console.log(top, left, DataUrl, id);
+          const newData = { top: top, left: left, DataUrl: DataUrl, id: id };
+          setCardData((cardData) => [...cardData, newData]);
+        });
+      } catch (error) {
+        console.error("データの取得中にエラーが発生しました:", error);
+        setCardData([]);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const svgString = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
+      <circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="red" />
+    </svg>
+  `;
+
+  const dataUri = `data:image/svg+xml,${encodeURIComponent(svgString)}`;
+
   const [, drop] = useDrop<CardItem, void, Record<string, never>>(
     () => ({
       accept: [CARD_TYPE],
@@ -28,9 +68,9 @@ const DroppableArea: FC = () => {
         if (coord === null) return;
         if (
           coord.x < 0 ||
-          coord.x > AREA_SIDE_LENGTH - 100 ||
+          coord.x > AREA_SIDE_LENGTH - 480 ||
           coord.y < 0 ||
-          coord.y > AREA_SIDE_LENGTH - 50
+          coord.y > AREA_SIDE_LENGTH - 678.72
         ) {
           return;
         }
@@ -40,7 +80,7 @@ const DroppableArea: FC = () => {
             {
               top: coord.y,
               left: coord.x,
-              name: item.name,
+              DataUrl: item.DataUrl,
               id: item.id,
             },
           ]);
@@ -52,8 +92,14 @@ const DroppableArea: FC = () => {
   return (
     <div style={areaStyle} ref={drop}>
       <DragLayer />
-      {cardData.map(({ top, left, name, id }) => (
-        <DraggableCard key={id} top={top} left={left} name={name} id={id} />
+      {cardData.map(({ top, left, DataUrl, id }) => (
+        <DraggableCard
+          key={id}
+          top={top}
+          left={left}
+          DataUrl={DataUrl}
+          id={id}
+        />
       ))}
     </div>
   );

@@ -7,8 +7,8 @@ const cardStyle: React.CSSProperties = {
   boxSizing: "border-box",
   display: "grid",
   placeItems: "center",
-  width: "100px",
-  height: "50px",
+  width: "480px",
+  height: "678.72px",
   color: "white",
   backgroundColor: "#2bff00",
   willChange: "transform",
@@ -45,7 +45,7 @@ const DragLayer: FC = () => {
         transform: `translate(${x}px, ${y}px)`,
       }}
     >
-      <p style={textStyle}>{item.name}</p>
+      <p style={textStyle}>{item.DataUrl}</p>
     </div>
   );
 };

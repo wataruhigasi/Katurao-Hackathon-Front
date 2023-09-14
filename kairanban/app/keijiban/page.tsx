@@ -41,7 +41,7 @@ const Page: React.FC = () => {
         canvasRef.current.dispose();
       }
     };
-  }, [mode === "edit"]);
+  }, [isEdit]);
 
   return (
     <>

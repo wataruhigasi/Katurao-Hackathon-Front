@@ -3,12 +3,12 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Header from "../../components/Header";
 import ModeButton from "../../components/ModeButton";
-import { useRakugakiCanvas } from "../../components/RakugakiCanvas";
+import RakugakiCanvas from "../../components/RakugakiCanvas";
 import DragDropBox from "../../components/Dragdrop/DragDrop";
 
 const Page: React.FC = () => {
   useEffect(() => {
-    window.scrollTo(10000 / 2, 10000 / 2);
+    window.scrollTo(10 / 2, 10 / 2);
   }, []);
 
   const [mode, setMode] = useState<"select" | "edit" | "drag">("select");
@@ -18,23 +18,31 @@ const Page: React.FC = () => {
     };
   };
 
-  const { RakugakiCanvas } = useRakugakiCanvas({
-    canvasId: "keijiban-canvas",
-    options: {
-      height: 1000,
-      width: 1000,
-      isDrawingMode: true,
-    },
-    deps: [],
-  });
+  // const { RakugakiCanvas } = RakugakiCanvas({
+  //   canvasId: "keijiban-canvas",
+  //   options: {
+  //     height: 1000,
+  //     width: 1000,
+  //     isDrawingMode: true,
+  //   },
+  //   deps: [],
+  // });
+  console.log("mode", mode);
 
   return (
     <>
       <Header />
       <ModeButton mode={mode} onClick={modeButtonOnClick} />
-      <div className={styles.keijibanRakugakiCanvas}>
-        <RakugakiCanvas />
-      </div>
+
+      <RakugakiCanvas
+        canvasId="keijiban-canvas"
+        className={mode === "edit" ? styles.zIndexPlus : styles.zIndexMinus}
+        options={{
+          height: 1000,
+          width: 1000,
+          isDrawingMode: mode === "edit",
+        }}
+      />
       <DragDropBox />
     </>
   );

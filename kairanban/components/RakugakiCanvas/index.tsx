@@ -1,36 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import * as fabric from "fabric";
 
-type UseRakugakiCanvas = (props: {
+type RakugakiCanvasProps = {
   canvasId: string;
   className?: string;
   options?: {};
-  deps?: React.DependencyList;
+};
+
+const RakugakiCanvas: React.FC<RakugakiCanvasProps> = ({
+  canvasId,
+  className,
+  options,
 }) => {
-  RakugakiCanvas: React.FC<RakugakiCanvasProps>;
-  canvas: fabric.Canvas;
-};
-
-type RakugakiCanvasProps = {
-  className?: string;
-};
-
-export const useRakugakiCanvas: UseRakugakiCanvas = ({ canvasId, options, deps }) => {
-  let canvas = null;
+  const canvasRef = useRef<fabric.Canvas | null>(null);
 
   useEffect(() => {
-    canvas = new fabric.Canvas(canvasId, options);
-    canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
-  }, deps);
+    const newCanvas = new fabric.Canvas(canvasId, options);
+    newCanvas.isDrawingMode = true;
+    newCanvas.freeDrawingBrush = new fabric.PencilBrush(newCanvas);
+    canvasRef.current = newCanvas;
 
-  const RakugakiCanvas: React.FC<RakugakiCanvasProps> = ({ className }) => {
-    return <canvas id={canvasId} className={className} />;
-  };
+    return () => {
+      console.log("unmount");
+      if (canvasRef.current) {
+        canvasRef.current.dispose();
+      }
+    };
+  }, [canvasId, options]);
 
-  return {
-    RakugakiCanvas,
-    canvas,
-  };
+  return <canvas id={canvasId} className={className} />;
 };
 
-export default useRakugakiCanvas;
+export default RakugakiCanvas;

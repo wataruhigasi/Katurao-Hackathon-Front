@@ -37,6 +37,7 @@ export type CardItem = {
   };
   DataUrl: string;
   id: string;
+  opacity?: number;
 };
 
 export const DraggableCard: FC<{
@@ -44,7 +45,8 @@ export const DraggableCard: FC<{
   left: number;
   DataUrl: string;
   id: string;
-}> = ({ top, left, DataUrl, id }) => {
+  opacity?: number;
+}> = ({ top, left, DataUrl, id, opacity }) => {
   const [{ isDragging }, drag, preview] = useDrag<
     CardItem,
     Record<string, never>,
@@ -59,22 +61,25 @@ export const DraggableCard: FC<{
         },
         DataUrl,
         id,
+        opacity,
       },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    [top, left, DataUrl, id]
+    [top, left, DataUrl, id, opacity]
   );
 
-  console.log(top, left, DataUrl, id);
+  console.log(top, left, DataUrl, id, opacity);
   useEffect(() => {
     preview(getEmptyImage());
   }, []);
 
   return (
     <div
-      style={isDragging ? cardDraggingStyle : { ...cardStyle, top, left }}
+      style={
+        isDragging ? cardDraggingStyle : { ...cardStyle, top, left, opacity }
+      }
       ref={drag}
     >
       <p>

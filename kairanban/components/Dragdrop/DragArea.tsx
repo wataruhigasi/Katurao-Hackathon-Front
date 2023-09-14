@@ -50,7 +50,9 @@ const DroppableArea: FC = () => {
             left: left,
             DataUrl: DataUrl,
             id: id,
+            opacity: 0.7,
           };
+          console.log(newData);
           setCardData((cardData) => [...cardData, newData]);
         });
       } catch (error) {
@@ -62,8 +64,9 @@ const DroppableArea: FC = () => {
     fetchData();
   }, []);
 
+  console.log("cardData", cardData);
+
   const PatchData = async (coord, item) => {
-    console.log("patch", coord, item);
     const Endpoint = `http://localhost:8080/article/${item.id}/position`;
 
     const PatchRequestData = {
@@ -83,6 +86,7 @@ const DroppableArea: FC = () => {
     () => ({
       accept: [CARD_TYPE],
       drop: (item, monitor) => {
+        console.log("dragitem", item);
         const coord = monitor.getSourceClientOffset();
         if (coord === null) return;
         if (
@@ -94,7 +98,6 @@ const DroppableArea: FC = () => {
           return;
         }
         if (coord) {
-          console.log("cord", item);
           setCardData((prev) => [
             ...prev.filter((data) => data.id !== item.id),
             {
@@ -113,13 +116,14 @@ const DroppableArea: FC = () => {
   return (
     <div style={areaStyle} ref={drop}>
       <DragLayer />
-      {cardData.map(({ top, left, DataUrl, id }) => (
+      {cardData.map(({ top, left, DataUrl, id, opacity }) => (
         <DraggableCard
           key={id}
           top={top}
           left={left}
           DataUrl={DataUrl}
           id={id}
+          opacity={opacity}
         />
       ))}
     </div>

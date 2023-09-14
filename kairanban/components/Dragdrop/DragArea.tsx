@@ -8,7 +8,7 @@ import {
   CARD_HEIGHT,
 } from "../Dragdrop/DragCard";
 import DragLayer from "../Dragdrop/DragLayer";
-import { data } from "autoprefixer";
+import axios from "axios";
 
 const AREA_SIDE_LENGTH = 10000;
 
@@ -57,6 +57,23 @@ const DroppableArea: FC = () => {
     fetchData();
   }, []);
 
+  const PatchData = async (coord, item) => {
+    console.log("patch", coord, item);
+    const Endpoint = `http://localhost:8080/article/${item.id}/position`;
+
+    const PatchRequestData = {
+      x: coord.x,
+      y: coord.y,
+    };
+
+    try {
+      const response = await axios.patch(Endpoint, PatchRequestData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const svgString = `
     <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
       <circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="red" />
@@ -80,6 +97,7 @@ const DroppableArea: FC = () => {
           return;
         }
         if (coord) {
+          console.log("cord", coord.x, coord.y);
           setCardData((prev) => [
             ...prev.filter((data) => data.id !== item.id),
             {
@@ -89,6 +107,7 @@ const DroppableArea: FC = () => {
               id: item.id,
             },
           ]);
+          PatchData(coord, item);
         }
       },
     }),

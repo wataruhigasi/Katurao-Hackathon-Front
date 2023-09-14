@@ -8,7 +8,7 @@ import DragDropBox from "../../components/Dragdrop/DragDrop";
 
 const Page: React.FC = () => {
   useEffect(() => {
-    window.scrollTo(10000 / 2, 10000 / 2);
+    window.scrollTo(10 / 2, 10 / 2);
   }, []);
 
   const [mode, setMode] = useState<"select" | "edit" | "drag">("select");

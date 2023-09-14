@@ -1,11 +1,12 @@
 import React from "react";
 import EditSvg from "../../public/EditIcon.svg";
 import SelectSvg from "../../public/SelectIcon.svg";
+import DragSvg from "../../public/DragIcon.svg";
 import styles from "./index.module.css";
 
 type ModeButtonProps = {
-  mode: "select" | "edit";
-  onClick: (mode: "select" | "edit") => () => void;
+  mode: "select" | "edit" | "drag";
+  onClick: (mode: "select" | "edit" | "drag") => () => void;
 };
 
 const ModeButton: React.FC<ModeButtonProps> = ({ mode, onClick }) => {
@@ -22,6 +23,12 @@ const ModeButton: React.FC<ModeButtonProps> = ({ mode, onClick }) => {
         onClick={onClick("edit")}
       >
         <EditSvg />
+      </div>
+      <div
+        className={mode === "drag" ? styles.iconSelected : styles.icon}
+        onClick={onClick("drag")}
+      >
+        <DragSvg />
       </div>
     </div>
   );

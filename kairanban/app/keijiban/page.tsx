@@ -21,7 +21,7 @@ const Page: React.FC = () => {
     <>
       <Header />
       <ModeButton mode={mode} onClick={modeButtonOnClick} />
-      <RakugakiCanvas width={10000} height={10000} />
+      <RakugakiCanvas width={1000} height={1000} />
     </>
   );
 };

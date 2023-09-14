@@ -1,6 +1,12 @@
 import React, { FC, useState, useEffect } from "react";
 import { useDrop } from "react-dnd";
-import { CardItem, CARD_TYPE, DraggableCard } from "../Dragdrop/DragCard";
+import {
+  CardItem,
+  CARD_TYPE,
+  DraggableCard,
+  CARD_WIDTH,
+  CARD_HEIGHT,
+} from "../Dragdrop/DragCard";
 import DragLayer from "../Dragdrop/DragLayer";
 import { data } from "autoprefixer";
 
@@ -33,13 +39,12 @@ const DroppableArea: FC = () => {
         const data = await response.json();
         data.map((article) => {
           console.log(article);
-          const top = 100;
-          const left = 100;
+          const top = article.position.x;
+          const left = article.position.y;
           const DataUrl = `data:image/svg+xml,${encodeURIComponent(
             article.body
           )}`;
           const id = String(article.id);
-          console.log(top, left, DataUrl, id);
           const newData = { top: top, left: left, DataUrl: DataUrl, id: id };
           setCardData((cardData) => [...cardData, newData]);
         });
@@ -68,9 +73,9 @@ const DroppableArea: FC = () => {
         if (coord === null) return;
         if (
           coord.x < 0 ||
-          coord.x > AREA_SIDE_LENGTH - 480 ||
+          coord.x > AREA_SIDE_LENGTH - CARD_WIDTH ||
           coord.y < 0 ||
-          coord.y > AREA_SIDE_LENGTH - 678.72
+          coord.y > AREA_SIDE_LENGTH - CARD_HEIGHT
         ) {
           return;
         }

@@ -4,14 +4,15 @@ import styles from "./page.module.css";
 import Header from "../../components/Header";
 import ModeButton from "../../components/ModeButton";
 import { useRakugakiCanvas } from "../../components/RakugakiCanvas";
+import DragDropBox from "../../components/Dragdrop/DragDrop";
 
 const Page: React.FC = () => {
   useEffect(() => {
     window.scrollTo(10000 / 2, 10000 / 2);
   }, []);
 
-  const [mode, setMode] = useState<"select" | "edit">("select");
-  const modeButtonOnClick = (a: "select" | "edit") => {
+  const [mode, setMode] = useState<"select" | "edit" | "drag">("select");
+  const modeButtonOnClick = (a: "select" | "edit" | "drag") => {
     return () => {
       setMode(a);
     };
@@ -34,6 +35,7 @@ const Page: React.FC = () => {
       <div className={styles.keijibanRakugakiCanvas}>
         <RakugakiCanvas />
       </div>
+      <DragDropBox />
     </>
   );
 };

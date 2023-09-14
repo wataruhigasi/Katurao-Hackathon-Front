@@ -45,7 +45,12 @@ const DroppableArea: FC = () => {
             article.body
           )}`;
           const id = String(article.id);
-          const newData = { top: top, left: left, DataUrl: DataUrl, id: id };
+          const newData = {
+            top: top,
+            left: left,
+            DataUrl: DataUrl,
+            id: id,
+          };
           setCardData((cardData) => [...cardData, newData]);
         });
       } catch (error) {
@@ -74,14 +79,6 @@ const DroppableArea: FC = () => {
     }
   };
 
-  const svgString = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100">
-      <circle cx="50" cy="50" r="40" stroke="black" stroke-width="2" fill="red" />
-    </svg>
-  `;
-
-  const dataUri = `data:image/svg+xml,${encodeURIComponent(svgString)}`;
-
   const [, drop] = useDrop<CardItem, void, Record<string, never>>(
     () => ({
       accept: [CARD_TYPE],
@@ -97,7 +94,7 @@ const DroppableArea: FC = () => {
           return;
         }
         if (coord) {
-          console.log("cord", coord.x, coord.y);
+          console.log("cord", item);
           setCardData((prev) => [
             ...prev.filter((data) => data.id !== item.id),
             {

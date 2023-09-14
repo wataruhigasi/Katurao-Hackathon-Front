@@ -1,7 +1,14 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useEffect } from "react";
 import { useDrop } from "react-dnd";
-import { CardItem, CARD_TYPE, DraggableCard } from "../Dragdrop/DragCard";
+import {
+  CardItem,
+  CARD_TYPE,
+  DraggableCard,
+  CARD_WIDTH,
+  CARD_HEIGHT,
+} from "../Dragdrop/DragCard";
 import DragLayer from "../Dragdrop/DragLayer";
+import axios from "axios";
 
 const AREA_SIDE_LENGTH = 10000;
 
@@ -16,21 +23,77 @@ const areaStyle: React.CSSProperties = {
 };
 
 const DroppableArea: FC = () => {
-  const [cardData, setCardData] = useState([
-    { top: 100, left: 100, name: "CARD1", id: "1" },
-    { top: 200, left: 200, name: "CARD2", id: "2" },
-  ]);
+  const [cardData, setCardData] = useState([]);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const Endpoint = "http://localhost:8080/articles";
+        const response = await fetch(Endpoint);
+
+        if (!response.ok) {
+          throw new Error(
+            `ネットワーク応答が正しくありませんでした：${response.status}`
+          );
+        }
+
+        const data = await response.json();
+        data.map((article) => {
+          console.log(article);
+          const top = article.position.x;
+          const left = article.position.y;
+          const DataUrl = `data:image/svg+xml,${encodeURIComponent(
+            article.body
+          )}`;
+          const id = String(article.id);
+          const newData = {
+            top: top,
+            left: left,
+            DataUrl: DataUrl,
+            id: id,
+            opacity: 0.7,
+          };
+          console.log(newData);
+          setCardData((cardData) => [...cardData, newData]);
+        });
+      } catch (error) {
+        console.error("データの取得中にエラーが発生しました:", error);
+        setCardData([]);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  console.log("cardData", cardData);
+
+  const PatchData = async (coord, item) => {
+    const Endpoint = `http://localhost:8080/article/${item.id}/position`;
+
+    const PatchRequestData = {
+      x: coord.x,
+      y: coord.y,
+    };
+
+    try {
+      const response = await axios.patch(Endpoint, PatchRequestData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const [, drop] = useDrop<CardItem, void, Record<string, never>>(
     () => ({
       accept: [CARD_TYPE],
       drop: (item, monitor) => {
+        console.log("dragitem", item);
         const coord = monitor.getSourceClientOffset();
         if (coord === null) return;
         if (
           coord.x < 0 ||
-          coord.x > AREA_SIDE_LENGTH - 100 ||
+          coord.x > AREA_SIDE_LENGTH - CARD_WIDTH ||
           coord.y < 0 ||
-          coord.y > AREA_SIDE_LENGTH - 50
+          coord.y > AREA_SIDE_LENGTH - CARD_HEIGHT
         ) {
           return;
         }
@@ -40,10 +103,11 @@ const DroppableArea: FC = () => {
             {
               top: coord.y,
               left: coord.x,
-              name: item.name,
+              DataUrl: item.DataUrl,
               id: item.id,
             },
           ]);
+          PatchData(coord, item);
         }
       },
     }),
@@ -52,8 +116,15 @@ const DroppableArea: FC = () => {
   return (
     <div style={areaStyle} ref={drop}>
       <DragLayer />
-      {cardData.map(({ top, left, name, id }) => (
-        <DraggableCard key={id} top={top} left={left} name={name} id={id} />
+      {cardData.map(({ top, left, DataUrl, id, opacity }) => (
+        <DraggableCard
+          key={id}
+          top={top}
+          left={left}
+          DataUrl={DataUrl}
+          id={id}
+          opacity={opacity}
+        />
       ))}
     </div>
   );

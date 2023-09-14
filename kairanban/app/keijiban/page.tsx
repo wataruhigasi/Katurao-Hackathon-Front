@@ -11,7 +11,7 @@ const CANVAS_ID = "keijiban-canvas";
 const Page: React.FC = () => {
   // 画面中央にスクロール
   useEffect(() => {
-    window.scrollTo(1000 / 2, 1000 / 2);
+    window.scrollTo(10 / 2, 10 / 2);
   }, []);
 
   const [mode, setMode] = useState<"select" | "edit" | "drag">("select");

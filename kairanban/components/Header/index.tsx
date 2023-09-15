@@ -104,6 +104,7 @@ const Header = () => {
               height: 480 * Math.sqrt(2) - 16 * 2,
               isDrawingMode: true,
             });
+            window.location.reload();
           }}
         >
           {/* This is a reactjs-popup style. See also https://react-popup.elazizi.com/react-modal */}

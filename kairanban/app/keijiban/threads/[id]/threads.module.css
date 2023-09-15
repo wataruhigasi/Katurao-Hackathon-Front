@@ -52,3 +52,8 @@
   fill: #527c5d;
   transition: background-color 0.3s ease-in-out;
 }
+
+.icon:hover {
+  background-color: #527c5d;
+  fill: #fff;
+}

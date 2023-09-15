@@ -16,16 +16,20 @@ const cardStyle: React.CSSProperties = {
   backgroundColor: "blue",
 };
 
+const cardStyleThreads: React.CSSProperties = {
+  position: "absolute",
+  boxSizing: "border-box",
+  display: "grid",
+  placeItems: "center",
+  width: "300px",
+  height: "300px",
+  color: "white",
+  backgroundColor: "blue",
+};
+
 const cardDraggingStyle: React.CSSProperties = {
   ...cardStyle,
   opacity: 0,
-};
-
-const textStyle: React.CSSProperties = {
-  fontSize: "20px",
-  fontWeight: "bold",
-  width: `${CARD_WIDTH}px`,
-  height: `${CARD_HEIGHT}px`,
 };
 
 export const CARD_TYPE = "Card";
@@ -37,7 +41,8 @@ export type CardItem = {
   };
   DataUrl: string;
   id: string;
-  opacity?: number;
+  flag: boolean;
+  opacity: number;
 };
 
 export const DraggableCard: FC<{
@@ -45,8 +50,9 @@ export const DraggableCard: FC<{
   left: number;
   DataUrl: string;
   id: string;
+  flag: boolean;
   opacity?: number;
-}> = ({ top, left, DataUrl, id, opacity }) => {
+}> = ({ top, left, DataUrl, id, flag, opacity }) => {
   const [{ isDragging }, drag, preview] = useDrag<
     CardItem,
     Record<string, never>,
@@ -61,16 +67,17 @@ export const DraggableCard: FC<{
         },
         DataUrl,
         id,
+        flag,
         opacity,
       },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
       }),
     }),
-    [top, left, DataUrl, id, opacity]
+    [top, left, DataUrl, id, flag, opacity]
   );
 
-  console.log(top, left, DataUrl, id, opacity);
+  console.log("DataUrl", DataUrl);
   useEffect(() => {
     preview(getEmptyImage());
   }, []);
@@ -78,7 +85,11 @@ export const DraggableCard: FC<{
   return (
     <div
       style={
-        isDragging ? cardDraggingStyle : { ...cardStyle, top, left, opacity }
+        isDragging
+          ? cardDraggingStyle
+          : flag
+          ? { ...cardStyleThreads, top, left, opacity }
+          : { ...cardStyle, top, left, opacity }
       }
       ref={drag}
     >

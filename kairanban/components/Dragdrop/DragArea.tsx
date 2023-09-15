@@ -25,7 +25,7 @@ const areaStyle: React.CSSProperties = {
 const DroppableArea: FC = () => {
   const [cardData, setCardData] = useState([]);
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchArticlesData = async () => {
       try {
         const Endpoint = "http://localhost:8080/articles";
         const response = await fetch(Endpoint);
@@ -49,7 +49,45 @@ const DroppableArea: FC = () => {
             top: top,
             left: left,
             DataUrl: DataUrl,
+            id: `${id}article`,
+            flag: false,
+            opacity: 0.7,
+          };
+          console.log(newData);
+          setCardData((cardData) => [...cardData, newData]);
+        });
+      } catch (error) {
+        console.error("データの取得中にエラーが発生しました:", error);
+        setCardData([]);
+      }
+    };
+    const fetchtThreadsData = async () => {
+      try {
+        const Endpoint = "http://localhost:8080/threads";
+        const response = await fetch(Endpoint);
+
+        if (!response.ok) {
+          throw new Error(
+            `ネットワーク応答が正しくありませんでした：${response.status}`
+          );
+        }
+
+        const data = await response.json();
+        console.log("fetchtThreadsData", data);
+        data.map((article) => {
+          console.log(article);
+          const top = article.position.x;
+          const left = article.position.y;
+          const DataUrl = `data:image/svg+xml,${encodeURIComponent(
+            article.title
+          )}`;
+          const id = String(article.id);
+          const newData = {
+            top: top,
+            left: left,
+            DataUrl: DataUrl,
             id: id,
+            flag: true,
             opacity: 0.7,
           };
           console.log(newData);
@@ -61,7 +99,8 @@ const DroppableArea: FC = () => {
       }
     };
 
-    fetchData();
+    fetchArticlesData();
+    fetchtThreadsData();
   }, []);
 
   console.log("cardData", cardData);
@@ -98,15 +137,20 @@ const DroppableArea: FC = () => {
           return;
         }
         if (coord) {
-          setCardData((prev) => [
-            ...prev.filter((data) => data.id !== item.id),
-            {
-              top: coord.y,
-              left: coord.x,
-              DataUrl: item.DataUrl,
-              id: item.id,
-            },
-          ]);
+          setCardData((prev) => {
+            console.log("prev", prev);
+            return [
+              ...prev.filter((data) => data.id !== item.id),
+              {
+                top: coord.y,
+                left: coord.x,
+                DataUrl: item.DataUrl,
+                id: item.id,
+                flag: item.flag,
+                opacity: item.opacity,
+              },
+            ];
+          });
           PatchData(coord, item);
         }
       },
@@ -116,13 +160,14 @@ const DroppableArea: FC = () => {
   return (
     <div style={areaStyle} ref={drop}>
       <DragLayer />
-      {cardData.map(({ top, left, DataUrl, id, opacity }) => (
+      {cardData.map(({ top, left, DataUrl, id, flag, opacity }) => (
         <DraggableCard
           key={id}
           top={top}
           left={left}
           DataUrl={DataUrl}
           id={id}
+          flag={flag}
           opacity={opacity}
         />
       ))}

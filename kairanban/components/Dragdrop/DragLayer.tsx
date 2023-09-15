@@ -1,14 +1,26 @@
 import React, { FC } from "react";
 import { useDragLayer } from "react-dnd";
-import { CardItem } from "./DragCard";
+import { CardItem, CARD_WIDTH, CARD_HEIGHT } from "./DragCard";
 
 const cardStyle: React.CSSProperties = {
   position: "absolute",
   boxSizing: "border-box",
   display: "grid",
   placeItems: "center",
-  width: "480px",
-  height: "678.72px",
+  width: `${CARD_WIDTH}px`,
+  height: `${CARD_HEIGHT}px`,
+  color: "white",
+  backgroundColor: "#2bff00",
+  willChange: "transform",
+};
+
+const cardStyleThreads: React.CSSProperties = {
+  position: "absolute",
+  boxSizing: "border-box",
+  display: "grid",
+  placeItems: "center",
+  width: "300px",
+  height: "300px",
   color: "white",
   backgroundColor: "#2bff00",
   willChange: "transform",
@@ -33,17 +45,27 @@ const DragLayer: FC = () => {
     return null;
   }
 
+  const flag = item.flag;
   const { top, left } = item.coordinates;
   const { x, y } = offsetDifference;
 
   return (
     <div
-      style={{
-        ...cardStyle,
-        left: `${left}px`,
-        top: `${top}px`,
-        transform: `translate(${x}px, ${y}px)`,
-      }}
+      style={
+        flag
+          ? {
+              ...cardStyleThreads,
+              left: `${left}px`,
+              top: `${top}px`,
+              transform: `translate(${x}px, ${y}px)`,
+            }
+          : {
+              ...cardStyle,
+              left: `${left}px`,
+              top: `${top}px`,
+              transform: `translate(${x}px, ${y}px)`,
+            }
+      }
     >
       <p style={textStyle}>{item.DataUrl}</p>
     </div>

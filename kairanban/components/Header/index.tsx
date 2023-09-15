@@ -123,8 +123,8 @@ const Header = () => {
                     // @ts-ignore
                     const svg = canvasRef.current.toSVG();
                     postThread(svg, {
-                      x: canvasRef.current.getCenterPoint().x,
-                      y: canvasRef.current.getCenterPoint().y,
+                      x: 10000 / 2 + 300,
+                      y: 10000 / 2 + 300,
                     });
                   }
                 }}

@@ -1,9 +1,19 @@
 .keijibanBackground {
-  background-image: linear-gradient(0deg, transparent calc(100% - 1px), #e4e4e4 calc(100% - 1px)),
-                    linear-gradient(90deg, transparent calc(100% - 1px), #e4e4e4 calc(100% - 1px));
+  background-image: linear-gradient(
+      0deg,
+      transparent calc(100% - 1px),
+      #e4e4e4 calc(100% - 1px)
+    ),
+    linear-gradient(
+      90deg,
+      transparent calc(100% - 1px),
+      #e4e4e4 calc(100% - 1px)
+    );
   background-size: 100px 100px;
   background-repeat: repeat;
   background-position: center center;
+  width: 10000px;
+  height: 10000px;
 
   background-color: #f2f2f2;
 }

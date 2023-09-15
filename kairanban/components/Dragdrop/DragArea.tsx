@@ -34,6 +34,8 @@ const compareDates = (now, createdAt) => {
   }
 };
 
+const now = new Date();
+
 const DroppableArea: FC = () => {
   const [cardData, setCardData] = useState([]);
   useEffect(() => {
@@ -57,7 +59,6 @@ const DroppableArea: FC = () => {
             article.body
           )}`;
           const id = String(article.id);
-          const now = new Date();
           const createdAt = new Date(article.created_at);
           const newOpacity = compareDates(now, createdAt);
 
@@ -99,7 +100,6 @@ const DroppableArea: FC = () => {
           )}`;
           const id = String(thread.id);
 
-          const now = new Date();
           const createdAt = new Date(thread.created_at);
           const newOpacity = compareDates(now, createdAt);
 

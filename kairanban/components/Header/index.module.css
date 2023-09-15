@@ -64,6 +64,14 @@
   box-shadow: 0 0 20px rgb(0 0 0 / 50%);
 }
 
+.popupThreadContent {
+  position: relative;
+  padding: 16px;
+  border-radius: 4px;
+  background: white;
+  box-shadow: 0 0 20px rgb(0 0 0 / 50%);
+}
+
 .createArticleCanvas {
   width: 100%;
   height: 100%;

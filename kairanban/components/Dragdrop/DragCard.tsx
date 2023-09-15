@@ -105,7 +105,7 @@ export const DraggableCard: FC<{
       ref={(node) => {
         drag(node);
       }}
-      onClick={() => handleClick(id)}
+      onClick={flag ? () => handleClick(id) : undefined}
     >
       <p>
         <img src={DataUrl} alt="SVG Image" />

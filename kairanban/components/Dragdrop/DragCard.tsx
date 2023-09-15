@@ -14,7 +14,9 @@ const cardStyle: React.CSSProperties = {
   width: `${CARD_WIDTH}px`,
   height: `${CARD_HEIGHT}px`,
   color: "white",
-  backgroundColor: "blue",
+  backgroundColor: "white",
+  border: "2px solid black",
+  boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)",
 };
 
 const cardStyleThreads: React.CSSProperties = {
@@ -25,7 +27,9 @@ const cardStyleThreads: React.CSSProperties = {
   width: "300px",
   height: "300px",
   color: "white",
-  backgroundColor: "blue",
+  backgroundColor: "white",
+  border: "2px solid black",
+  boxShadow: "2px 2px 5px rgba(0, 0, 0, 0.5)",
 };
 
 const cardDraggingStyle: React.CSSProperties = {

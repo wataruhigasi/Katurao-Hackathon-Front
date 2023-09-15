@@ -82,7 +82,7 @@ const Page: React.FC = () => {
     });
     newCanvas.freeDrawingBrush = new fabric.PencilBrush(newCanvas);
 
-    newCanvas.on("path:created", (e: any) => {
+    newCanvas.on("mouse:up", (e: any) => {
       if (e.currentTarget.aCoords) {
         postPath(e.currentTarget, e.currentTarget.aCoords.tl);
       }

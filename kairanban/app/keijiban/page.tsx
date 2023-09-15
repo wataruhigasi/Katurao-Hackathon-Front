@@ -62,8 +62,8 @@ const Page: React.FC = () => {
     window.scrollTo(10000 / 2, 10000 / 2);
   }, []);
 
-  const [mode, setMode] = useState<"select" | "edit" | "drag">("select");
-  const modeButtonOnClick = (a: "select" | "edit" | "drag") => {
+  const [mode, setMode] = useState<"select" | "edit">("select");
+  const modeButtonOnClick = (a: "select" | "edit") => {
     return () => {
       setMode(a);
     };

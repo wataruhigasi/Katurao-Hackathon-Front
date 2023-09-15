@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./index.module.css";
 import Popup from "reactjs-popup";
 import * as fabric from "fabric";
+import axios from "axios";
 
 const CANVAS_ID = "create-canvas";
 
@@ -19,6 +20,23 @@ const Header = () => {
     const canvas = new fabric.Canvas(CANVAS_ID, canvasSize);
     canvas.freeDrawingBrush = new fabric.PencilBrush(canvas);
   }, [isOpen]);
+
+  const PostArticle = async () => {
+    const EndPoint = "http://localhost:8000/api/articles";
+    const PostRequestData = {
+      body: "SVG",
+      position: {
+        x: 100,
+        y: 200,
+      },
+    };
+    try {
+      const response = await axios.post(EndPoint, PostRequestData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <header className={styles.headerStyle}>

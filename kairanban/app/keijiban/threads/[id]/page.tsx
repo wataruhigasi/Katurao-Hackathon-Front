@@ -1,7 +1,9 @@
 "use client";
+import Link from "next/link";
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./threads.module.css";
 import ModeButton from "../../../../components/ModeButton";
+import ReturnIcon from "../../../../public/ReturnIcon.svg";
 import * as fabric from "fabric";
 
 const CANVAS_ID = "threads-canvas";
@@ -45,6 +47,13 @@ const ThreadsPage: React.FC = () => {
           id={CANVAS_ID}
           className={mode === "edit" ? styles.zIndexPlus : styles.zIndexMinus}
         />
+      </div>
+      <div className={styles.buttonContainer}>
+        <button className={styles.icon}>
+          <Link href="/keijiban/">
+            <ReturnIcon />
+          </Link>
+        </button>
       </div>
     </>
   );

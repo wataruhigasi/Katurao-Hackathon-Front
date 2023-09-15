@@ -1,57 +1,52 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import Comment from "../../../../components/Comment/index.js";
+import React, { useEffect, useRef, useState } from "react";
+import styles from "./threads.module.css";
+import ModeButton from "../../../../components/ModeButton";
+import * as fabric from "fabric";
 
-const ThreadsPage = () => {
-  const [height, setheight] = useState(200);
-  const [width, setwidth] = useState(200);
-  const title = {
-    fontSize: "24px",
-    color: "black",
-  };
-  const comments = [
-    {
-      name: "あゆむ",
-      date: "2017/11/29 20:30",
-      content: "おっきくなーれ",
-    },
-    {
-      name: "あゆむ",
-      date: "2020/05/29 20:30",
-      content: "おっきくなーれ",
-    },
-  ];
+const CANVAS_ID = "threads-canvas";
 
+const ThreadsPage: React.FC = () => {
   useEffect(() => {
-    const handleScroll = () => {
-      if (
-        window.innerHeight + window.scrollY >=
-        document.body.scrollHeight - 200
-      ) {
-        setheight((height) => height + 50);
-      }
-    };
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    window.scrollTo(10 / 2, 10 / 2);
   }, []);
 
+  const [mode, setMode] = useState<"select" | "edit" | "drag">("select");
+  const modeButtonOnClick = (a: "select" | "edit" | "drag") => {
+    return () => {
+      setMode(a);
+    };
+  };
+
+  const isEdit = mode === "edit";
+
+  const canvasRef = useRef<fabric.Canvas | null>(null);
+  useEffect(() => {
+    const newCanvas = new fabric.Canvas(CANVAS_ID, {
+      height: 1000,
+      width: 1000,
+      isDrawingMode: isEdit,
+    });
+    newCanvas.freeDrawingBrush = new fabric.PencilBrush(newCanvas);
+
+    canvasRef.current = newCanvas;
+    return () => {
+      if (canvasRef.current) {
+        canvasRef.current.dispose();
+      }
+    };
+  }, [isEdit]);
+
   return (
-    <div>
-      <div className="bg-gray-200" style={{ minHeight: height + "vh" }}>
-        <h2 style={title}>スレッドタイトル</h2>
-        <div style={{ height: "20px" }}></div>
-        <div style={{ borderTop: "10px dashed #8c8b8b" }}>
-          <div style={{ height: "20px" }}></div>
-          {comments.map((comment, index) => (
-            <Comment key={index} index={index} {...comment} />
-          ))}
-        </div>
+    <>
+      <ModeButton mode={mode} onClick={modeButtonOnClick} />
+      <div className={styles.keijibanBackground}>
+        <canvas
+          id={CANVAS_ID}
+          className={mode === "edit" ? styles.zIndexPlus : styles.zIndexMinus}
+        />
       </div>
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-gray-200"></div>
-    </div>
+    </>
   );
 };
 

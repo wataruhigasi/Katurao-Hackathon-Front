@@ -80,8 +80,8 @@ const ThreadsPage: React.FC = () => {
 
   useEffect(() => {
     const newCanvas = new fabric.Canvas(CANVAS_ID, {
-      height: 1000,
-      width: 1000,
+      height: window.innerHeight,
+      width: window.innerWidth,
       isDrawingMode: isEdit,
     });
     newCanvas.freeDrawingBrush = new fabric.PencilBrush(newCanvas);

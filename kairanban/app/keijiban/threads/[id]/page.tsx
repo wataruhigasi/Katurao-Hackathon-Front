@@ -6,7 +6,6 @@ import ModeButton from "../../../../components/ModeButton";
 import ReturnIcon from "../../../../public/ReturnIcon.svg";
 import * as fabric from "fabric";
 import { useParams } from "next/navigation";
-import router from "next/router";
 
 const CANVAS_ID = "threads-canvas";
 
@@ -65,7 +64,7 @@ const ThreadsPage: React.FC = () => {
   const params = useParams();
 
   useEffect(() => {
-    window.scrollTo(10 / 2, 10 / 2);
+    window.scrollTo(1000 / 2, 1000 / 2);
   }, []);
 
   const [mode, setMode] = useState<"select" | "edit" | "drag">("select");
@@ -119,7 +118,7 @@ const ThreadsPage: React.FC = () => {
   return (
     <>
       <ModeButton mode={mode} onClick={modeButtonOnClick} />
-      <div className={styles.keijibanBackground}>
+      <div className={styles.background}>
         <canvas
           id={CANVAS_ID}
           className={mode === "edit" ? styles.zIndexPlus : styles.zIndexZero}

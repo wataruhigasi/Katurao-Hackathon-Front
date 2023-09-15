@@ -59,7 +59,7 @@ const postPath = (
 const Page: React.FC = () => {
   // 画面中央にスクロール
   useEffect(() => {
-    window.scrollTo(10 / 2, 10 / 2);
+    window.scrollTo(10000 / 2, 10000 / 2);
   }, []);
 
   const [mode, setMode] = useState<"select" | "edit" | "drag">("select");

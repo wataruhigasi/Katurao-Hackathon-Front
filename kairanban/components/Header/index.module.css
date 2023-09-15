@@ -23,6 +23,7 @@
   padding: 8px 16px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
+  font-size: 20px;
 }
 
 .button:hover {
@@ -52,6 +53,7 @@
   background: #ffffff;
   border-radius: 50%;
   border: 1px solid #cfcece;
+  color: black;
 }
 
 .popupContent {
@@ -77,4 +79,22 @@
   height: 100%;
   border: 1px solid #527c5d;
   border-radius: 4px;
+}
+
+.completeButton {
+  margin-top: 16px;
+  border: 1px solid #527c5d;
+  color: #527c5d;
+  border-radius: 4px;
+  font-weight: bold;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+  background: white;
+  font-size: 20px;
+}
+
+.completeButton:hover {
+  background-color: #527c5d;
+  color: white;
 }

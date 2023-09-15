@@ -105,10 +105,27 @@ const DroppableArea: FC = () => {
 
   console.log("cardData", cardData);
 
-  const PatchData = async (coord, item) => {
+  const PatchArticleData = async (coord, item) => {
     console.log("coord", coord, item);
     var result = item.id.replace("article", "");
     const Endpoint = `http://localhost:8080/article/${result}/position`;
+
+    const PatchRequestData = {
+      x: coord.x,
+      y: coord.y,
+    };
+
+    try {
+      const response = await axios.patch(Endpoint, PatchRequestData);
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const PatchThreadData = async (coord, item) => {
+    console.log("coord", coord, item);
+    const Endpoint = `http://localhost:8080/thread/${item.id}/position`;
 
     const PatchRequestData = {
       x: coord.x,
@@ -153,7 +170,12 @@ const DroppableArea: FC = () => {
               },
             ];
           });
-          PatchData(coord, item);
+          if (item.id.indexOf("article") > -1) {
+            console.log("1");
+            PatchArticleData(coord, item);
+          } else {
+            PatchThreadData(coord, item);
+          }
         }
       },
     }),

@@ -53,6 +53,7 @@ export const DraggableCard: FC<{
   flag: boolean;
   opacity?: number;
 }> = ({ top, left, DataUrl, id, flag, opacity }) => {
+  console.log("top, left", top, left, id);
   const [{ isDragging }, drag, preview] = useDrag<
     CardItem,
     Record<string, never>,
@@ -77,7 +78,6 @@ export const DraggableCard: FC<{
     [top, left, DataUrl, id, flag, opacity]
   );
 
-  console.log("DataUrl", DataUrl);
   useEffect(() => {
     preview(getEmptyImage());
   }, []);

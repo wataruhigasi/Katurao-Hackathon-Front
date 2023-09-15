@@ -46,7 +46,9 @@ const DragLayer: FC = () => {
   }
 
   const flag = item.flag;
+  // アイテムの位置
   const { top, left } = item.coordinates;
+  // アイテムのドラッグ中にマウスカーソルが移動した座標の差分
   const { x, y } = offsetDifference;
 
   return (

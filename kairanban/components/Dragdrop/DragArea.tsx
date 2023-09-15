@@ -9,6 +9,7 @@ import {
 } from "../Dragdrop/DragCard";
 import DragLayer from "../Dragdrop/DragLayer";
 import axios from "axios";
+import { data } from "autoprefixer";
 
 const AREA_SIDE_LENGTH = 10000;
 
@@ -70,7 +71,6 @@ const DroppableArea: FC = () => {
             flag: false,
             opacity: newOpacity,
           };
-          console.log(newData);
           setCardData((cardData) => [...cardData, newData]);
         });
       } catch (error) {
@@ -78,6 +78,7 @@ const DroppableArea: FC = () => {
         setCardData([]);
       }
     };
+
     const fetchtThreadsData = async () => {
       try {
         const Endpoint = "http://localhost:8080/threads";
@@ -90,9 +91,7 @@ const DroppableArea: FC = () => {
         }
 
         const data = await response.json();
-        console.log("fetchtThreadsData", data);
         data.map((thread) => {
-          console.log(thread);
           const top = thread.position.x;
           const left = thread.position.y;
           const DataUrl = `data:image/svg+xml,${encodeURIComponent(
@@ -111,7 +110,6 @@ const DroppableArea: FC = () => {
             flag: true,
             opacity: newOpacity,
           };
-          console.log(newData);
           setCardData((cardData) => [...cardData, newData]);
         });
       } catch (error) {
@@ -124,38 +122,32 @@ const DroppableArea: FC = () => {
     fetchtThreadsData();
   }, []);
 
-  console.log("cardData", cardData);
-
-  const PatchArticleData = async (coord, item) => {
-    console.log("coord", coord, item);
+  const PatchArticleData = async (top, left, item) => {
     var result = item.id.replace("article", "");
     const Endpoint = `http://localhost:8080/article/${result}/position`;
 
     const PatchRequestData = {
-      x: coord.x,
-      y: coord.y,
+      x: top,
+      y: left,
     };
 
     try {
       const response = await axios.patch(Endpoint, PatchRequestData);
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const PatchThreadData = async (coord, item) => {
-    console.log("coord", coord, item);
+  const PatchThreadData = async (top, left, item) => {
     const Endpoint = `http://localhost:8080/thread/${item.id}/position`;
 
     const PatchRequestData = {
-      x: coord.x,
-      y: coord.y,
+      x: top,
+      y: left,
     };
 
     try {
       const response = await axios.patch(Endpoint, PatchRequestData);
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -165,8 +157,8 @@ const DroppableArea: FC = () => {
     () => ({
       accept: [CARD_TYPE],
       drop: (item, monitor) => {
-        console.log("dragitem", item);
         const coord = monitor.getSourceClientOffset();
+        const set = monitor.getDifferenceFromInitialOffset();
         if (coord === null) return;
         if (
           coord.x < 0 ||
@@ -178,12 +170,13 @@ const DroppableArea: FC = () => {
         }
         if (coord) {
           setCardData((prev) => {
-            console.log("prev", prev);
             return [
               ...prev.filter((data) => data.id !== item.id),
               {
-                top: coord.y,
-                left: coord.x,
+                top: item.coordinates.top + set.y,
+                left: item.coordinates.left + set.x,
+                // top: coord.y,
+                // left: coord.x,
                 DataUrl: item.DataUrl,
                 id: item.id,
                 flag: item.flag,
@@ -192,10 +185,17 @@ const DroppableArea: FC = () => {
             ];
           });
           if (item.id.indexOf("article") > -1) {
-            console.log("1");
-            PatchArticleData(coord, item);
+            PatchArticleData(
+              item.coordinates.top + set.y,
+              item.coordinates.left + set.x,
+              item
+            );
           } else {
-            PatchThreadData(coord, item);
+            PatchThreadData(
+              item.coordinates.top + set.y,
+              item.coordinates.left + set.x,
+              item
+            );
           }
         }
       },

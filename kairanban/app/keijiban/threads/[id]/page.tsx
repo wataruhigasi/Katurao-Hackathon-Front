@@ -49,9 +49,9 @@ const ThreadsPage: React.FC = () => {
         />
       </div>
       <div className={styles.buttonContainer}>
-        <button className={styles.icon}>
+        <button>
           <Link href="/keijiban/">
-            <ReturnIcon />
+            <ReturnIcon className={styles.icon} />
           </Link>
         </button>
       </div>

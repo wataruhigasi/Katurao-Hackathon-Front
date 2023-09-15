@@ -12,6 +12,8 @@
   background-size: 100px 100px;
   background-repeat: repeat;
   background-position: center center;
+  width: 10000px;
+  height: 10000px;
 
   background-color: #f2f2f2;
 }

@@ -5,8 +5,8 @@ import DragSvg from "../../public/DragIcon.svg";
 import styles from "./index.module.css";
 
 type ModeButtonProps = {
-  mode: "select" | "edit" | "drag";
-  onClick: (mode: "select" | "edit" | "drag") => () => void;
+  mode: "select" | "edit";
+  onClick: (mode: "select" | "edit") => () => void;
 };
 
 const ModeButton: React.FC<ModeButtonProps> = ({ mode, onClick }) => {
@@ -23,12 +23,6 @@ const ModeButton: React.FC<ModeButtonProps> = ({ mode, onClick }) => {
         onClick={onClick("edit")}
       >
         <EditSvg />
-      </div>
-      <div
-        className={mode === "drag" ? styles.iconSelected : styles.icon}
-        onClick={onClick("drag")}
-      >
-        <DragSvg />
       </div>
     </div>
   );

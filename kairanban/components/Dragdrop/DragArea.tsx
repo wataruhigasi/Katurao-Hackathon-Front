@@ -26,7 +26,6 @@ const areaStyle: React.CSSProperties = {
 // 日付の差分を計算する関数で、return 値は opacity の値になる
 const compareDates = (now, createdAt) => {
   const diffInDays = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
-  console.log("diffInDays", diffInDays);
 
   if (diffInDays >= 10) {
     return 0;
@@ -53,7 +52,6 @@ const DroppableArea: FC = () => {
 
         const data = await response.json();
         data.map((article) => {
-          console.log(article);
           const top = article.position.x;
           const left = article.position.y;
           const DataUrl = `data:image/svg+xml,${encodeURIComponent(

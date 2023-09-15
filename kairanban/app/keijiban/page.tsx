@@ -123,21 +123,3 @@ const Page: React.FC = () => {
 };
 
 export default Page;
-
-// <DragDropBox width={1000} height={1000} />
-
-// const GetArticles = async () => {
-//   try {
-//     const Endpoint = "http://localhost:8080/articles";
-//     const response = await fetch(Endpoint);
-
-//     if (!response.ok) {
-//       throw new Error(`Network response was not ok: ${response.status}`);
-//     }
-
-//     const data = await response.json();
-//     console.log(data);
-//   } catch (error) {
-//     console.error("An error occurred while fetching data:", error);
-//   }
-// };

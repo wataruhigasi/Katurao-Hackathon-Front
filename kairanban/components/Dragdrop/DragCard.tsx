@@ -88,9 +88,7 @@ export const DraggableCard: FC<{
   }, []);
 
   const handleClick = (id) => {
-    console.log("Clicked");
     location.replace(`http://localhost:3000/keijiban/threads/${id}`);
-    // navigate("/threads/id");
   };
 
   return (

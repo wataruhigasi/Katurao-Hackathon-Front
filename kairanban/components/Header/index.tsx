@@ -115,6 +115,7 @@ const Header = () => {
                 <canvas id={CANVAS_ID} className={styles.createArticleCanvas} />
               </div>
               <button
+                className={styles.completeButton}
                 onClick={() => {
                   close();
                   if (canvasRef.current) {
@@ -156,6 +157,7 @@ const Header = () => {
                 <canvas id={CANVAS_ID} className={styles.createArticleCanvas} />
               </div>
               <button
+                className={styles.completeButton}
                 onClick={() => {
                   close();
                   if (canvasRef.current) {

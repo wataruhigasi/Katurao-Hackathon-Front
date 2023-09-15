@@ -1,6 +1,7 @@
 import React, { FC, useEffect } from "react";
 import { useDrag } from "react-dnd";
 import { getEmptyImage } from "react-dnd-html5-backend";
+import { Link, useNavigate } from "react-router-dom";
 
 export const CARD_WIDTH = 480;
 export const CARD_HEIGHT = 678.72;
@@ -53,6 +54,7 @@ export const DraggableCard: FC<{
   flag: boolean;
   opacity?: number;
 }> = ({ top, left, DataUrl, id, flag, opacity }) => {
+  // const navigate = useNavigate();
   const [{ isDragging }, drag, preview] = useDrag<
     CardItem,
     Record<string, never>,
@@ -81,6 +83,12 @@ export const DraggableCard: FC<{
     preview(getEmptyImage());
   }, []);
 
+  const handleClick = () => {
+    console.log("Clicked");
+    location.replace("http://localhost:3000/keijiban/threads/id");
+    // navigate("/threads/id");
+  };
+
   return (
     <div
       style={
@@ -90,7 +98,10 @@ export const DraggableCard: FC<{
           ? { ...cardStyleThreads, top, left, opacity }
           : { ...cardStyle, top, left, opacity }
       }
-      ref={drag}
+      ref={(node) => {
+        drag(node);
+      }}
+      onClick={handleClick}
     >
       <p>
         <img src={DataUrl} alt="SVG Image" />

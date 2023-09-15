@@ -175,8 +175,6 @@ const DroppableArea: FC = () => {
               {
                 top: item.coordinates.top + set.y,
                 left: item.coordinates.left + set.x,
-                // top: coord.y,
-                // left: coord.x,
                 DataUrl: item.DataUrl,
                 id: item.id,
                 flag: item.flag,

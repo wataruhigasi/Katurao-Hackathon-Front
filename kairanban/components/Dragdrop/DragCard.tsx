@@ -83,9 +83,9 @@ export const DraggableCard: FC<{
     preview(getEmptyImage());
   }, []);
 
-  const handleClick = () => {
+  const handleClick = (id) => {
     console.log("Clicked");
-    location.replace("http://localhost:3000/keijiban/threads/id");
+    location.replace(`http://localhost:3000/keijiban/threads/${id}`);
     // navigate("/threads/id");
   };
 
@@ -101,7 +101,7 @@ export const DraggableCard: FC<{
       ref={(node) => {
         drag(node);
       }}
-      onClick={handleClick}
+      onClick={() => handleClick(id)}
     >
       <p>
         <img src={DataUrl} alt="SVG Image" />

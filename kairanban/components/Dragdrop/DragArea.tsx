@@ -106,7 +106,9 @@ const DroppableArea: FC = () => {
   console.log("cardData", cardData);
 
   const PatchData = async (coord, item) => {
-    const Endpoint = `http://localhost:8080/article/${item.id}/position`;
+    console.log("coord", coord, item);
+    var result = item.id.replace("article", "");
+    const Endpoint = `http://localhost:8080/article/${result}/position`;
 
     const PatchRequestData = {
       x: coord.x,

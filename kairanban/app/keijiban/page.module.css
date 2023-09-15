@@ -12,6 +12,6 @@
   z-index: 1;
 }
 
-.zIndexMinus {
-  z-index: -1;
+.zIndexZero {
+  z-index: 0;
 }

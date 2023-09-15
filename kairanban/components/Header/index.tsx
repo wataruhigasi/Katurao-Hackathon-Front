@@ -143,7 +143,10 @@ const Header = () => {
           overlayStyle={{ background: "rgba(0,0,0,0.5)" }}
           closeOnDocumentClick={false}
           onOpen={() => setIsOpen(true)}
-          onClose={() => setIsOpen(false)}
+          onClose={() => {
+            setIsOpen(false);
+            window.location.reload();
+          }}
         >
           {/* This is a reactjs-popup style. See also https://react-popup.elazizi.com/react-modal */}
           {/* @ts-ignore */}

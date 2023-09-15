@@ -22,6 +22,20 @@ const areaStyle: React.CSSProperties = {
   left: 0,
 };
 
+// 日付の差分を計算する関数で、return 値は opacity の値になる
+const compareDates = (now, createdAt) => {
+  const diffInDays = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
+  console.log("diffInDays", diffInDays);
+
+  if (diffInDays >= 10) {
+    return 0;
+  } else {
+    return 1 - diffInDays * 0.1;
+  }
+};
+
+const now = new Date();
+
 const DroppableArea: FC = () => {
   const [cardData, setCardData] = useState([]);
   useEffect(() => {
@@ -45,13 +59,16 @@ const DroppableArea: FC = () => {
             article.body
           )}`;
           const id = String(article.id);
+          const createdAt = new Date(article.created_at);
+          const newOpacity = compareDates(now, createdAt);
+
           const newData = {
             top: top,
             left: left,
             DataUrl: DataUrl,
             id: `${id}article`,
             flag: false,
-            opacity: 0.7,
+            opacity: newOpacity,
           };
           console.log(newData);
           setCardData((cardData) => [...cardData, newData]);
@@ -74,21 +91,25 @@ const DroppableArea: FC = () => {
 
         const data = await response.json();
         console.log("fetchtThreadsData", data);
-        data.map((article) => {
-          console.log(article);
-          const top = article.position.x;
-          const left = article.position.y;
+        data.map((thread) => {
+          console.log(thread);
+          const top = thread.position.x;
+          const left = thread.position.y;
           const DataUrl = `data:image/svg+xml,${encodeURIComponent(
-            article.title
+            thread.title
           )}`;
-          const id = String(article.id);
+          const id = String(thread.id);
+
+          const createdAt = new Date(thread.created_at);
+          const newOpacity = compareDates(now, createdAt);
+
           const newData = {
             top: top,
             left: left,
             DataUrl: DataUrl,
             id: id,
             flag: true,
-            opacity: 0.7,
+            opacity: newOpacity,
           };
           console.log(newData);
           setCardData((cardData) => [...cardData, newData]);
